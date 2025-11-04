@@ -17,7 +17,7 @@ const OutfitPicker = () => {
 
   const fetchWeather = async () => {
     try {
-      const response = await fetch('/api/weather');
+      const response = await fetch('/.netlify/functions/api/weather');
       if (response.ok) {
         const data = await response.json();
         setWeather(data);
@@ -30,7 +30,7 @@ const OutfitPicker = () => {
   const generateOutfits = async () => {
     setIsGenerating(true);
     try {
-      const response = await fetch('/api/outfits/generate', {
+      const response = await fetch('/.netlify/functions/api/outfits/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const OutfitPicker = () => {
 
   const saveOutfit = async (outfit) => {
     try {
-      const response = await fetch('/api/outfits/save', {
+      const response = await fetch('/.netlify/functions/api/outfits/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

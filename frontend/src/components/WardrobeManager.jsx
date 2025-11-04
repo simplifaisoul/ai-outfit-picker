@@ -17,7 +17,7 @@ const WardrobeManager = () => {
 
   const fetchWardrobe = async () => {
     try {
-      const response = await fetch('/api/wardrobe');
+      const response = await fetch('/.netlify/functions/api/wardrobe');
       if (response.ok) {
         const data = await response.json();
         setWardrobe(data);
@@ -31,7 +31,7 @@ const WardrobeManager = () => {
     if (!confirm('Are you sure you want to delete this item?')) return;
     
     try {
-      const response = await fetch(`/api/wardrobe/${id}`, {
+      const response = await fetch(`/.netlify/functions/api/wardrobe/${id}`, {
         method: 'DELETE'
       });
       

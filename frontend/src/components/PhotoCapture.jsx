@@ -63,7 +63,7 @@ const PhotoCapture = ({ onPhotoCapture, category }) => {
     
     setIsProcessing(true);
     try {
-      const response = await fetch('/api/wardrobe', {
+      const response = await fetch('/.netlify/functions/api/wardrobe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
