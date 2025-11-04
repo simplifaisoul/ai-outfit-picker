@@ -183,99 +183,113 @@ const OutfitPicker = () => {
 
       <style jsx>{`
         .outfit-picker {
-          max-width: 800px;
+          max-width: 900px;
           margin: 0 auto;
-          padding: 20px;
+          padding: 0;
         }
         
         .picker-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 30px;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #e0e0e0;
         }
         
         .picker-header h2 {
           margin: 0;
           color: #333;
+          font-weight: 300;
+          font-size: 2rem;
+          letter-spacing: -0.5px;
         }
         
         .header-info {
           display: flex;
-          gap: 20px;
+          gap: 25px;
           align-items: center;
         }
         
         .weather-info, .date-info {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 8px 12px;
-          background: #f8f9fa;
-          border-radius: 20px;
-          font-size: 14px;
+          gap: 10px;
+          padding: 10px 16px;
+          background: #fff;
+          border: 1px solid #e0e0e0;
+          font-size: 0.95rem;
+          letter-spacing: 0.5px;
         }
         
         .occasion-selector {
           display: flex;
           align-items: center;
-          gap: 15px;
-          margin-bottom: 30px;
-          padding: 20px;
-          background: #f8f9fa;
-          border-radius: 8px;
+          gap: 20px;
+          margin-bottom: 40px;
+          padding: 25px;
+          background: #fff;
+          border: 1px solid #e0e0e0;
         }
         
         .occasion-selector label {
-          font-weight: 500;
+          font-weight: 400;
+          font-size: 1rem;
+          letter-spacing: 0.5px;
         }
         
         .occasion-select {
-          padding: 8px 12px;
-          border: 1px solid #dee2e6;
-          border-radius: 6px;
+          padding: 12px 16px;
+          border: 1px solid #d0d0d0;
+          background: #fff;
+          font-size: 1rem;
         }
         
         .generate-btn {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 8px 16px;
-          background: #007bff;
-          color: white;
-          border: none;
-          border-radius: 6px;
+          gap: 10px;
+          padding: 12px 20px;
+          background: #333;
+          color: #fff;
+          border: 1px solid #333;
           cursor: pointer;
-          transition: background 0.2s;
+          transition: all 0.3s ease;
+          font-size: 1rem;
+          letter-spacing: 0.5px;
         }
         
         .generate-btn:hover:not(:disabled) {
-          background: #0056b3;
+          background: #000;
+          border-color: #000;
         }
         
         .generate-btn:disabled {
-          opacity: 0.6;
+          opacity: 0.5;
           cursor: not-allowed;
         }
         
         .selected-outfit {
-          background: white;
-          border-radius: 12px;
-          padding: 30px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          margin-bottom: 30px;
+          background: #fff;
+          border: 1px solid #e0e0e0;
+          padding: 40px;
+          margin-bottom: 40px;
         }
         
         .selected-outfit h3 {
           margin-top: 0;
+          margin-bottom: 30px;
           color: #333;
+          font-weight: 300;
+          font-size: 1.5rem;
+          letter-spacing: -0.5px;
         }
         
         .outfit-display {
           display: flex;
           justify-content: center;
-          gap: 20px;
-          margin: 30px 0;
+          gap: 30px;
+          margin: 40px 0;
           flex-wrap: wrap;
         }
         
@@ -284,95 +298,108 @@ const OutfitPicker = () => {
         }
         
         .outfit-item img {
-          width: 120px;
-          height: 120px;
+          width: 140px;
+          height: 140px;
           object-fit: cover;
-          border-radius: 8px;
-          margin-bottom: 8px;
+          border: 1px solid #e0e0e0;
+          margin-bottom: 12px;
         }
         
         .item-label {
-          font-size: 12px;
+          font-size: 0.9rem;
           color: #666;
           text-transform: capitalize;
+          letter-spacing: 0.5px;
         }
         
         .outfit-actions {
           display: flex;
-          gap: 10px;
+          gap: 15px;
           justify-content: center;
         }
         
         .save-outfit-btn, .rate-btn {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 6px;
+          gap: 10px;
+          padding: 12px 24px;
+          border: 1px solid #333;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.3s ease;
+          font-size: 1rem;
+          letter-spacing: 0.5px;
         }
         
         .save-outfit-btn {
-          background: #28a745;
-          color: white;
+          background: #333;
+          color: #fff;
+          border-color: #333;
         }
         
         .save-outfit-btn:hover {
-          background: #218838;
+          background: #000;
+          border-color: #000;
         }
         
         .rate-btn {
-          background: #ffc107;
-          color: white;
+          background: #fff;
+          color: #333;
+          border-color: #666;
         }
         
         .rate-btn:hover {
-          background: #e0a800;
+          background: #666;
+          color: #fff;
+          border-color: #666;
+        }
+        
+        .outfit-alternatives {
+          margin-top: 50px;
         }
         
         .outfit-alternatives h3 {
-          margin-bottom: 20px;
+          margin-bottom: 30px;
           color: #333;
+          font-weight: 300;
+          font-size: 1.5rem;
+          letter-spacing: -0.5px;
         }
         
         .alternatives-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-          gap: 15px;
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+          gap: 20px;
         }
         
         .alternative-outfit {
-          background: white;
-          border: 2px solid #dee2e6;
-          border-radius: 8px;
-          padding: 15px;
+          background: #fff;
+          border: 1px solid #e0e0e0;
+          padding: 20px;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.3s ease;
         }
         
         .alternative-outfit:hover {
-          border-color: #007bff;
+          border-color: #333;
         }
         
         .alternative-outfit.selected {
-          border-color: #007bff;
-          background: #f8f9ff;
+          border-color: #333;
+          background: #f8f8f8;
         }
         
         .mini-outfit {
           display: flex;
           flex-direction: column;
-          gap: 8px;
+          gap: 10px;
           align-items: center;
         }
         
         .mini-item {
-          width: 40px;
-          height: 40px;
+          width: 50px;
+          height: 50px;
           object-fit: cover;
-          border-radius: 4px;
+          border: 1px solid #e0e0e0;
         }
       `}</style>
     </div>

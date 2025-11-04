@@ -134,62 +134,74 @@ const WardrobeManager = () => {
         .wardrobe-manager {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 20px;
+          padding: 0;
         }
         
         .wardrobe-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 30px;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #e0e0e0;
         }
         
         .wardrobe-header h2 {
           margin: 0;
           color: #333;
+          font-weight: 300;
+          font-size: 2rem;
+          letter-spacing: -0.5px;
         }
         
         .add-item-btn {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 10px 20px;
-          background: #007bff;
-          color: white;
-          border: none;
-          border-radius: 6px;
+          gap: 10px;
+          padding: 12px 24px;
+          background: #333;
+          color: #fff;
+          border: 1px solid #333;
           cursor: pointer;
-          transition: background 0.2s;
+          transition: all 0.3s ease;
+          font-size: 1rem;
+          letter-spacing: 0.5px;
         }
         
         .add-item-btn:hover {
-          background: #0056b3;
+          background: #000;
+          border-color: #000;
         }
         
         .category-filter {
           display: flex;
-          gap: 10px;
-          margin-bottom: 30px;
+          gap: 15px;
+          margin-bottom: 40px;
           flex-wrap: wrap;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #e0e0e0;
         }
         
         .category-btn {
-          padding: 8px 16px;
-          border: 1px solid #dee2e6;
-          background: white;
-          border-radius: 20px;
+          padding: 10px 20px;
+          border: 1px solid #d0d0d0;
+          background: #fff;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.3s ease;
+          font-size: 0.95rem;
+          letter-spacing: 0.5px;
+          text-transform: capitalize;
         }
         
         .category-btn.active {
-          background: #007bff;
-          color: white;
-          border-color: #007bff;
+          background: #333;
+          color: #fff;
+          border-color: #333;
         }
         
         .category-btn:hover:not(.active) {
-          background: #f8f9fa;
+          border-color: #333;
+          background: #f8f8f8;
         }
         
         .add-item-modal {
@@ -198,7 +210,7 @@ const WardrobeManager = () => {
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(0, 0, 0, 0.7);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -206,106 +218,124 @@ const WardrobeManager = () => {
         }
         
         .modal-content {
-          background: white;
-          padding: 30px;
-          border-radius: 12px;
-          max-width: 600px;
+          background: #fff;
+          padding: 40px;
+          border: 1px solid #e0e0e0;
+          max-width: 700px;
           width: 90%;
           max-height: 90vh;
           overflow-y: auto;
         }
         
+        .modal-content h3 {
+          margin-top: 0;
+          margin-bottom: 30px;
+          font-weight: 300;
+          font-size: 1.5rem;
+          letter-spacing: -0.5px;
+        }
+        
         .category-select {
           width: 100%;
-          padding: 10px;
-          border: 1px solid #dee2e6;
-          border-radius: 6px;
-          margin-bottom: 20px;
+          padding: 12px 16px;
+          border: 1px solid #d0d0d0;
+          background: #fff;
+          margin-bottom: 30px;
+          font-size: 1rem;
         }
         
         .cancel-btn {
           width: 100%;
-          padding: 10px;
-          background: #6c757d;
-          color: white;
-          border: none;
-          border-radius: 6px;
+          padding: 12px;
+          background: #fff;
+          color: #666;
+          border: 1px solid #666;
           cursor: pointer;
-          margin-top: 20px;
+          margin-top: 30px;
+          transition: all 0.3s ease;
+        }
+        
+        .cancel-btn:hover {
+          background: #666;
+          color: #fff;
         }
         
         .wardrobe-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-          gap: 20px;
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 30px;
         }
         
         .wardrobe-item {
-          background: white;
-          border-radius: 8px;
+          background: #fff;
+          border: 1px solid #e0e0e0;
           overflow: hidden;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          transition: transform 0.2s;
+          transition: all 0.3s ease;
         }
         
         .wardrobe-item:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          border-color: #333;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
         
         .item-image {
           width: 100%;
-          height: 200px;
+          height: 250px;
           object-fit: cover;
+          border-bottom: 1px solid #e0e0e0;
         }
         
         .item-info {
-          padding: 15px;
+          padding: 20px;
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
         
         .item-category {
-          font-weight: 500;
+          font-weight: 400;
           color: #333;
           text-transform: capitalize;
+          font-size: 1rem;
+          letter-spacing: 0.5px;
         }
         
         .item-actions {
           display: flex;
-          gap: 5px;
+          gap: 8px;
         }
         
         .action-btn {
-          width: 30px;
-          height: 30px;
-          border: none;
-          border-radius: 4px;
+          width: 36px;
+          height: 36px;
+          border: 1px solid #d0d0d0;
+          background: #fff;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.2s;
-        }
-        
-        .view-btn {
-          background: #17a2b8;
-          color: white;
-        }
-        
-        .edit-btn {
-          background: #ffc107;
-          color: white;
-        }
-        
-        .delete-btn {
-          background: #dc3545;
-          color: white;
+          transition: all 0.3s ease;
         }
         
         .action-btn:hover {
-          opacity: 0.8;
+          border-color: #333;
+          background: #333;
+          color: #fff;
+        }
+        
+        .view-btn:hover {
+          background: #333;
+          border-color: #333;
+        }
+        
+        .edit-btn:hover {
+          background: #333;
+          border-color: #333;
+        }
+        
+        .delete-btn:hover {
+          background: #333;
+          border-color: #333;
         }
       `}</style>
     </div>

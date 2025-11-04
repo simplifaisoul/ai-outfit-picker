@@ -166,15 +166,14 @@ const PhotoCapture = ({ onPhotoCapture, category }) => {
       
       <style jsx>{`
         .photo-capture {
-          max-width: 500px;
+          max-width: 600px;
           margin: 0 auto;
         }
         
         .capture-container {
-          background: #f8f9fa;
-          border-radius: 12px;
+          background: #fff;
+          border: 1px solid #e0e0e0;
           overflow: hidden;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .camera-preview {
@@ -189,118 +188,131 @@ const PhotoCapture = ({ onPhotoCapture, category }) => {
         
         .camera-controls {
           position: absolute;
-          bottom: 20px;
+          bottom: 30px;
           left: 50%;
           transform: translateX(-50%);
           display: flex;
-          gap: 15px;
+          gap: 20px;
         }
         
         .capture-btn, .cancel-btn {
-          width: 60px;
-          height: 60px;
+          width: 70px;
+          height: 70px;
           border-radius: 50%;
-          border: none;
+          border: 2px solid #fff;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.3s ease;
+          background: rgba(255, 255, 255, 0.9);
+          backdrop-filter: blur(10px);
         }
         
         .capture-btn {
-          background: #007bff;
-          color: white;
+          background: #333;
+          border-color: #333;
+          color: #fff;
         }
         
         .capture-btn:hover {
-          background: #0056b3;
-          transform: scale(1.1);
+          background: #000;
+          transform: scale(1.05);
         }
         
         .cancel-btn {
-          background: #dc3545;
-          color: white;
+          background: #fff;
+          color: #333;
         }
         
         .cancel-btn:hover {
-          background: #c82333;
+          background: #f0f0f0;
         }
         
         .capture-options {
-          padding: 40px 20px;
+          padding: 50px 30px;
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 25px;
         }
         
         .camera-btn, .upload-btn {
-          padding: 20px;
-          border: 2px dashed #dee2e6;
-          border-radius: 8px;
-          background: white;
+          padding: 30px;
+          border: 1px solid #d0d0d0;
+          background: #fff;
           cursor: pointer;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 10px;
-          transition: all 0.2s;
+          gap: 15px;
+          transition: all 0.3s ease;
         }
         
         .camera-btn:hover, .upload-btn:hover {
-          border-color: #007bff;
-          background: #f8f9ff;
+          border-color: #333;
+          background: #f8f8f8;
+        }
+        
+        .camera-btn span, .upload-btn span {
+          font-size: 1.1rem;
+          letter-spacing: 0.5px;
+          color: #333;
         }
         
         .photo-review {
-          padding: 20px;
+          padding: 30px;
         }
         
         .captured-image {
           width: 100%;
           height: auto;
-          border-radius: 8px;
-          margin-bottom: 20px;
+          border: 1px solid #e0e0e0;
+          margin-bottom: 30px;
         }
         
         .review-controls {
           display: flex;
-          gap: 10px;
+          gap: 15px;
         }
         
         .retake-btn, .save-btn {
           flex: 1;
-          padding: 12px;
-          border: none;
-          border-radius: 6px;
+          padding: 15px;
+          border: 1px solid #333;
+          background: #fff;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          transition: all 0.2s;
+          gap: 10px;
+          transition: all 0.3s ease;
+          font-size: 1rem;
+          letter-spacing: 0.5px;
         }
         
         .retake-btn {
-          background: #6c757d;
-          color: white;
+          color: #666;
+          border-color: #666;
         }
         
         .retake-btn:hover {
-          background: #5a6268;
+          background: #666;
+          color: #fff;
         }
         
         .save-btn {
-          background: #28a745;
-          color: white;
+          background: #333;
+          color: #fff;
+          border-color: #333;
         }
         
         .save-btn:hover:not(:disabled) {
-          background: #218838;
+          background: #000;
+          border-color: #000;
         }
         
         .save-btn:disabled {
-          opacity: 0.6;
+          opacity: 0.5;
           cursor: not-allowed;
         }
       `}</style>
