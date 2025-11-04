@@ -1,0 +1,19 @@
+{
+  "name": "ai-outfit-picker",
+  "version": "1.0.0",
+  "description": "AI-powered outfit picker with photo capture and wardrobe management",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start"
+  },
+  "keywords": ["ai", "outfit", "wardrobe", "fashion", "photo-capture"],
+  "author": "SimplifAI",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

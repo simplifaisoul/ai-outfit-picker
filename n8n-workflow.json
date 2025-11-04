@@ -1,0 +1,251 @@
+{
+  "name": "Daily Outfit Suggestions",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:5000/api/weather",
+        "options": {}
+      },
+      "id": "2",
+      "name": "Get Weather",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:5000/api/wardrobe",
+        "options": {}
+      },
+      "id": "3",
+      "name": "Get Wardrobe",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        460,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Determine occasion based on day of week\nconst today = new Date();\nconst dayOfWeek = today.getDay();\nconst hour = today.getHours();\n\nlet occasion = 'casual';\nif (dayOfWeek >= 1 && dayOfWeek <= 5) {\n  if (hour < 12) {\n    occasion = 'work';\n  } else {\n    occasion = 'casual';\n  }\n} else {\n  if (hour >= 18) {\n    occasion = 'party';\n  } else {\n    occasion = 'casual';\n  }\n}\n\n// Get weather data from previous node\nconst weather = $input.first().json;\n\n// Get wardrobe items from second node\nconst wardrobe = $input.last().json;\n\nreturn {\n  occasion,\n  weather,\n  wardrobe,\n  timestamp: today.toISOString()\n};"
+      },
+      "id": "4",
+      "name": "Determine Occasion",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:5000/api/outfits/generate",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "occasion",
+              "value": "={{ $json.occasion }}"
+            },
+            {
+              "name": "weather",
+              "value": "={{ $json.weather }}"
+            },
+            {
+              "name": "count",
+              "value": 3
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5",
+      "name": "Generate Outfits",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        900,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format the outfit suggestions for notification\nconst outfits = $input.first().json.outfits;\nconst occasion = $('Determine Occasion').first().json.occasion;\nconst weather = $('Determine Occasion').first().json.weather;\n\nif (!outfits || outfits.length === 0) {\n  return {\n    subject: 'No Outfit Suggestions Available',\n    message: 'Please add more items to your wardrobe to get outfit suggestions.'\n  };\n}\n\nconst bestOutfit = outfits[0];\nconst outfitItems = bestOutfit.items.map(item => \n  `${item.category.charAt(0).toUpperCase() + item.category.slice(1)}`\n).join(', ');\n\nconst weatherEmoji = weather.condition === 'sunny' ? '☀️' : \n                    weather.condition === 'cloudy' ? '☁️' : \n                    weather.condition === 'rainy' ? '🌧️' : '🌤️';\n\nconst subject = `Today's Outfit Suggestion - ${weatherEmoji} ${weather.temperature}°F`;\nconst message = `\nGood morning! Here's your outfit suggestion for today:\n\n🎯 Occasion: ${occasion.charAt(0).toUpperCase() + occasion.slice(1)}\n🌡️ Weather: ${weather.condition}, ${weather.temperature}°F\n\n👔 Recommended Outfit:\n${outfitItems}\n\nHave a great day! 💫\n\n${outfits.length > 1 ? '\\nAlternative options are available in the app.' : ''}\n`;\n\nreturn {\n  subject,\n  message,\n  outfitData: bestOutfit\n};"
+      },
+      "id": "6",
+      "name": "Format Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "outfits@yourapp.com",
+        "toEmail": "user@example.com",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.message }}",
+        "options": {}
+      },
+      "id": "7",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1340,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:5000/api/outfits/save",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "outfit",
+              "value": "={{ $json.outfitData }}"
+            },
+            {
+              "name": "occasion",
+              "value": "={{ $('Determine Occasion').first().json.occasion }}"
+            },
+            {
+              "name": "date",
+              "value": "={{ new Date().toISOString().split('T')[0] }}"
+            },
+            {
+              "name": "notes",
+              "value": "Auto-generated daily suggestion"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8",
+      "name": "Save Daily Outfit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1340,
+        480
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Weather",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Wardrobe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Weather": {
+      "main": [
+        [
+          {
+            "node": "Determine Occasion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Wardrobe": {
+      "main": [
+        [
+          {
+            "node": "Determine Occasion",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Determine Occasion": {
+      "main": [
+        [
+          {
+            "node": "Generate Outfits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Outfits": {
+      "main": [
+        [
+          {
+            "node": "Format Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Message": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save Daily Outfit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "daily-outfit-suggestions",
+  "tags": []
+}
