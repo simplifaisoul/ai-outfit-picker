@@ -62,7 +62,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Right side actions */}
             <div className="flex items-center gap-4">
               {/* Notifications */}
-              {notifications.length > 0 && (
+              {false && (
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}

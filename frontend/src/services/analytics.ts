@@ -61,9 +61,9 @@ class AnalyticsService {
 
     try {
       // Initialize Google Analytics if available
-      if (typeof gtag !== 'undefined') {
-        gtag('js', new Date())
-        gtag('config', import.meta.env.VITE_GA_MEASUREMENT_ID, {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('js', new Date())
+        (window as any).gtag('config', import.meta.env.VITE_GA_MEASUREMENT_ID, {
           send_page_view: false,
           custom_map: { custom_parameter_1: 'user_type' }
         })
@@ -82,8 +82,8 @@ class AnalyticsService {
   setUserId(userId: string): void {
     this.userId = userId
     
-    if (typeof gtag !== 'undefined') {
-      gtag('config', import.meta.env.VITE_GA_MEASUREMENT_ID, {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('config', import.meta.env.VITE_GA_MEASUREMENT_ID, {
         user_id: userId
       })
     }
@@ -91,8 +91,8 @@ class AnalyticsService {
 
   trackPageView(path: string, title?: string): void {
     try {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'page_view', {
           page_title: title || document.title,
           page_location: window.location.href,
           page_path: path
@@ -157,8 +157,8 @@ class AnalyticsService {
     this.performanceMetrics.push(metric)
     
     // Send to analytics if available
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'timing_complete', {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'timing_complete', {
         name: metric.name,
         value: Math.round(metric.value)
       })
@@ -178,8 +178,8 @@ class AnalyticsService {
   private async sendEvent(event: AnalyticsEvent): Promise<void> {
     try {
       // Send to Google Analytics
-      if (typeof gtag !== 'undefined') {
-        gtag('event', event.event, {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', event.event, {
           event_category: event.category,
           event_label: event.label,
           value: event.value,

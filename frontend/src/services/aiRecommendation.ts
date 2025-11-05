@@ -236,7 +236,7 @@ export class AIRecommendationEngine {
     const requirement = occasionRequirements[context.occasion]
     const outfitFormality = outfit.map(item => item.formality)
     
-    const formalityMatch = outfitFormality.some(f => requirement.formality.includes(f))
+    const formalityMatch = outfitFormality.some(f => f && requirement.formality.includes(f))
     const coverageScore = outfit.length >= 3 ? 1 : outfit.length / 3
     
     return (formalityMatch ? 0.7 : 0.3) + (coverageScore * 0.3)
@@ -402,8 +402,8 @@ export class AIRecommendationEngine {
             ['purple', 'yellow']
           ]
           return complementaryPairs.some(pair => 
-            colors.some(c => pair.includes(c?.toLowerCase())) &&
-            colors.some(c => pair.includes(c?.toLowerCase()))
+            colors.some(c => c && pair.includes(c.toLowerCase())) &&
+            colors.some(c => c && pair.includes(c.toLowerCase()))
           )
         },
         bonus: 0.4
@@ -412,7 +412,7 @@ export class AIRecommendationEngine {
         name: 'Neutral Base',
         applies: (colors) => {
           const neutrals = ['black', 'white', 'gray', 'navy', 'brown']
-          return colors.some(c => neutrals.includes(c?.toLowerCase()))
+          return colors.some(c => c && neutrals.includes(c.toLowerCase()))
         },
         bonus: 0.2
       }

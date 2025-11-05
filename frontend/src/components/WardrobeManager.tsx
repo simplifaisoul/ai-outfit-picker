@@ -107,7 +107,8 @@ const WardrobeManager: React.FC = () => {
     )
   }
 
-  const GridItem = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+  const GridItem = (props: any) => {
+    const { index, style } = props
     const item = filteredAndSortedItems[index]
     const isSelected = selectedItems.includes(item.id)
 
@@ -283,7 +284,7 @@ const WardrobeManager: React.FC = () => {
           <div className="flex gap-2 items-center">
             <select
               value={sortBy}
-              onChange={(e) => dispatch(setSortBy(e.target.value as SortOption))}
+              onChange={(e) => dispatch(setSortBy(e.target.value as "date" | "name" | "category"))}
               className="px-3 py-2 border border-gray-300 focus:border-black focus:outline-none"
             >
               <option value="date">Date Added</option>
@@ -351,6 +352,7 @@ const WardrobeManager: React.FC = () => {
               <AutoSizer>
                 {({ height, width }) => (
                   <GridList
+                    width={width}
                     columnCount={Math.floor(width / 280)}
                     columnWidth={280}
                     height={height}

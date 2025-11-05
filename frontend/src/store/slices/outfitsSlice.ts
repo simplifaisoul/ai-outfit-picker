@@ -134,7 +134,7 @@ const outfitsSlice = createSlice({
     builder
       // Fetch weather
       .addCase(fetchWeather.fulfilled, (state, action) => {
-        state.weather = action.payload
+        state.weather = { ...action.payload, season: 'all' }
       })
       // Generate outfits
       .addCase(generateOutfits.pending, (state) => {

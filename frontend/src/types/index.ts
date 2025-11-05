@@ -35,24 +35,18 @@ export interface Outfit {
     shoes: WardrobeItem
     accessories?: WardrobeItem[]
   }
-  reasoning?: string[]
-  breakdown?: {
-    top: WardrobeItem
-    bottom: WardrobeItem
-    shoes: WardrobeItem
-    accessories?: WardrobeItem[]
-  }
 }
 
 export interface WeatherData {
   temperature: number
-  condition: 'sunny' | 'cloudy' | 'rainy' | 'snowy' | 'partly-cloudy'
+  condition: 'sunny' | 'cloudy' | 'rainy' | 'snowy' | 'partly-cloudy' | 'stormy'
   humidity: number
-  windSpeed: number
-  season: 'spring' | 'summer' | 'fall' | 'winter'
   location?: string
   feels_like?: number
   uv_index?: number
+  season?: string
+  windSpeed?: number
+  lastUpdated?: string
 }
 
 export interface User {

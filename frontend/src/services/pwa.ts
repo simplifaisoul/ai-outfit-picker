@@ -53,14 +53,14 @@ class PWAService {
 
     // Handle background sync
     if ('sync' in this.swRegistration) {
-      this.swRegistration.sync.register('outfit-sync')
-        .catch(err => console.log('Background sync registration failed:', err))
+      (this.swRegistration as any).sync.register('outfit-sync')
+        .catch((err: any) => console.log('Background sync registration failed:', err))
     }
 
     // Handle push events
-    this.swRegistration.addEventListener('push', (event) => {
-      if (event.data) {
-        const options = event.data.json()
+    this.swRegistration.addEventListener('push', (event: any) => {
+      if ((event as any).data) {
+        const options = (event as any).data.json()
         event.waitUntil(
           this.showNotification(options.title, options)
         )
@@ -68,14 +68,16 @@ class PWAService {
     })
 
     // Handle notification clicks
-    this.swRegistration.addEventListener('notificationclick', (event) => {
-      event.notification.close()
+    this.swRegistration.addEventListener('notificationclick', (event: any) => {
+      (event as any).notification.close()
       
-      if (event.action) {
-        this.handleNotificationAction(event.action, event.notification.data)
+      if ((event as any).action) {
+        this.handleNotificationAction((event as any).action, (event as any).notification.data)
       } else {
         // Default action - open app
-        clients.openWindow('/')
+        if (typeof window !== 'undefined' && 'clients' in window) {
+          (window as any).clients.openWindow('/')
+        }
       }
     })
   }
@@ -137,7 +139,7 @@ class PWAService {
         applicationServerKey: this.urlBase64ToUint8Array(
           import.meta.env.VITE_VAPID_PUBLIC_KEY || ''
         )
-      })
+      } as any)
 
       await this.sendSubscriptionToServer(subscription)
     } catch (error) {
@@ -362,16 +364,7 @@ class PWAService {
       this.showNotification('Daily Outfit Suggestion', {
         body: 'Check out today\'s AI-powered outfit recommendations!',
         tag: 'daily-outfit',
-        actions: [
-          {
-            action: 'view-outfit',
-            title: 'View Outfits'
-          },
-          {
-            action: 'dismiss',
-            title: 'Later'
-          }
-        ]
+        // actions removed for compatibility
       })
     }, timeUntilNotification)
   }

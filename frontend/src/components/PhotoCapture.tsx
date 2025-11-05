@@ -28,6 +28,7 @@ const PhotoCapture: React.FC<PhotoCaptureProps> = ({
   
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
   
   const dispatch = useAppDispatch()
   const loading = useAppSelector(state => state.ui.loading.wardrobe)
