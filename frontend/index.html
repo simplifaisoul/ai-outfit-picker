@@ -4,7 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI-powered outfit recommendations tailored to your style and the weather" />
+    <meta name="theme-color" content="#000000" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Outfit Picker" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="AI Outfit Picker" />
+    <meta property="og:description" content="AI-powered outfit recommendations tailored to your style and the weather" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/pwa-512x512.png" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI Outfit Picker" />
+    <meta name="twitter:description" content="AI-powered outfit recommendations tailored to your style and the weather" />
+    <meta name="twitter:image" content="/pwa-512x512.png" />
+    
     <title>AI Outfit Picker</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      // Note: GA_MEASUREMENT_ID will be replaced during build
+    </script>
   </head>
   <body>
     <div id="root"></div>
